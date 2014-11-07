@@ -12,4 +12,6 @@
 import json, requests, datetime
 from bs4 import BeautifulSoup as BS
 
-print "test " + str(datetime.date.today())
+today = datetime.date.today()
+years_wanted = 4
+days_wanted = years_wanted*365
