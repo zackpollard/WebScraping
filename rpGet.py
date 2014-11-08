@@ -12,20 +12,23 @@
 import sys, json, requests, datetime, time, re
 from bs4 import BeautifulSoup as BS
 
+base_url = "http://www.racingpost.com/horses2/results/home.sd?r_date="
 url_date = datetime.date.today()
 url_date = "2014-11-03"
 
 time_between = 10.0# time between requests in secinds
+count = 0
+count_name = 0
+count_reset = 50
+
 years_wanted = 4#number of years of data wanted
 days_wanted = years_wanted*365
-base_url = "http://www.racingpost.com/horses2/results/home.sd?r_date="
 #today - datetime.timedelta(days = 1)
 #^ prev day
 
 data = []
-count = 0
 #### To be in loop ####
-for i in range(days_wanted)
+for i in xrange(days_wanted):
   try:
     now = float(time.time())#start time
     url = base_url+str(url_date) #makes the url
@@ -49,7 +52,7 @@ for i in range(days_wanted)
           odds = [] # same as above
           for result in results:
             result = result.strip()#nasty trailing whitespace
-            if result[0] == "1":
+            if result[0] == "1":#gets the winners
               if result[-1].isupper():
                 fav.append(result[-1])
                 if "even" in result.split()[-1].lower():
@@ -66,8 +69,14 @@ for i in range(days_wanted)
           None
       date.append(location)
     data.append(date)
+
     url_date = url_date - datetime.timedelta(days = 1)
-    if count >
+    if count > count_reset:
+      with open("rp_json\\rp"+count_name+".json", "w") as f:
+        f.write(json.dumps(data))
+        count = -1
+        count_name += 1
+    count += 1
 
     delay = float(time.time()) - now#how long it took
     if delay < time_between:
