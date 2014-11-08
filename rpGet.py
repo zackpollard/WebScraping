@@ -21,8 +21,9 @@ count = 0
 count_name = 0
 count_reset = 50
 
-years_wanted = 4#number of years of data wanted
-days_wanted = years_wanted*365
+#years_wanted = 4#number of years of data wanted
+#days_wanted = years_wanted*365
+days_wanted = 10
 #today - datetime.timedelta(days = 1)
 #^ prev day
 
@@ -85,3 +86,5 @@ for i in xrange(days_wanted):
   except:
     print "!!!something went wrong!!!"
     sys.exit()
+with open("rp_json\\rp"+count_name+".json", "w") as f:
+  f.write(json.dumps(data))
