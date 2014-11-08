@@ -29,6 +29,7 @@ days_wanted = years_wanted*365
 data = []
 #### To be in loop ####
 for i in xrange(days_wanted):
+  print i
   try:
     now = float(time.time())#start time
     url = base_url+str(url_date) #makes the url
