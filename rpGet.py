@@ -30,7 +30,7 @@ days_wanted = 10
 data = []
 #### To be in loop ####
 for i in xrange(days_wanted):
-  print i
+  print str(url_date)
 
   now = float(time.time())#start time
   url = base_url+str(url_date) #makes the url
