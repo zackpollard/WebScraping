@@ -19,11 +19,11 @@ url_date = datetime.date.today() - datetime.timedelta(days = 1)
 time_between = 10.0# time between requests in secinds
 count = 0
 count_name = 0
-count_reset = 50
+count_reset = 3
 
-years_wanted = 4#number of years of data wanted
-days_wanted = years_wanted*365
-#days_wanted = 10
+#years_wanted = 4#number of years of data wanted
+#days_wanted = years_wanted*365
+days_wanted = 10
 #today - datetime.timedelta(days = 1)
 #^ prev day
 
@@ -78,6 +78,7 @@ for i in xrange(days_wanted):
       f.write(json.dumps(data))
       count = -1
       count_name += 1
+      data = []
   count += 1
 
   delay = float(time.time()) - now#how long it took
