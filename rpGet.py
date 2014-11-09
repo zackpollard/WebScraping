@@ -21,9 +21,9 @@ count = 0
 count_name = 0
 count_reset = 50
 
-#years_wanted = 4#number of years of data wanted
-#days_wanted = years_wanted*365
-days_wanted = 10
+years_wanted = 4#number of years of data wanted
+days_wanted = years_wanted*365
+#days_wanted = 10
 #today - datetime.timedelta(days = 1)
 #^ prev day
 
@@ -41,7 +41,7 @@ for i in xrange(days_wanted):
   date = [str(url_date)] #creates out first layer of info
 
   #loops over each course's (location) results
-  for table in soup.find_all("table", {"class": "resultGrid"}):
+  for table in soup.find("div", {"id": "resultTag"}).find_all("table", {"class": "resultGrid"}):
     location = [] #second layer of info
     location.append(list_of_Locations.pop(0))
     #loops over each result (time_race)
