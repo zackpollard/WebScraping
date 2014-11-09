@@ -16,14 +16,14 @@ base_url = "http://www.racingpost.com/horses2/results/home.sd?r_date="
 url_date = datetime.date.today() - datetime.timedelta(days = 1)
 #url_date = "2014-11-03"
 
-time_between = 10.0# time between requests in secinds
+time_between = 5.0# time between requests in secinds
 count = 0
 count_name = 0
-count_reset = 3
+count_reset = 50
 
-#years_wanted = 4#number of years of data wanted
-#days_wanted = years_wanted*365
-days_wanted = 10
+years_wanted = 8#number of years of data wanted
+days_wanted = years_wanted*365
+#days_wanted = 10
 #today - datetime.timedelta(days = 1)
 #^ prev day
 
@@ -52,9 +52,11 @@ for i in xrange(days_wanted):
         results = td.find_all("p")[1].get_text().strip().encode("ascii").split("\n")
         fav = [] # mostly just one value
         odds = [] # same as above
+        found_first = False
         for result in results:
           result = result.strip()#nasty trailing whitespace
           if result[0] == "1":#gets the winners
+            found_first = True
             if result[-1].isupper():
               fav.append(result[-1])
               if "even" in result.split()[-1].lower():
@@ -64,6 +66,9 @@ for i in xrange(days_wanted):
             else:
               fav.append("N")
               odds.append(result.split()[-1])
+        if found_first == False:
+          fav.append("N")
+          odds.append("Unknown")
         time_race.append(fav)
         time_race.append(odds)
         location.append(time_race)
