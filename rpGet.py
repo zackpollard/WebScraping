@@ -16,12 +16,12 @@ base_url = "http://www.racingpost.com/horses2/results/home.sd?r_date="
 url_date = datetime.date.today() - datetime.timedelta(days = 1)
 #url_date = "2014-11-03"
 
-time_between = 5.0# time between requests in secinds
+time_between = 0.5# time between requests in secinds
 count = 0
 count_name = 0
 count_reset = 50
 
-years_wanted = 8#number of years of data wanted
+years_wanted = 10#number of years of data wanted
 days_wanted = years_wanted*365
 #days_wanted = 10
 #today - datetime.timedelta(days = 1)
@@ -39,6 +39,7 @@ for i in xrange(days_wanted):
   #gets the list of locations
   list_of_Locations = [re.search("^([^(]*)", x.string.encode("ascii")).group(0).strip() for x in soup.find("div", {"class": "tabBlock"}).ol.find_all("a")]
   date = [str(url_date)] #creates out first layer of info
+  num_races = 0
 
   #loops over each course's (location) results
   for table in soup.find("div", {"id": "resultTag"}).find_all("table", {"class": "resultGrid"}):
@@ -53,6 +54,7 @@ for i in xrange(days_wanted):
         fav = [] # mostly just one value
         odds = [] # same as above
         found_first = False
+        num_races += 1
         for result in results:
           result = result.strip()#nasty trailing whitespace
           if result[0] == "1":#gets the winners
@@ -75,6 +77,7 @@ for i in xrange(days_wanted):
       except:
         None
     date.append(location)
+  date.insert(1, num_races)
   data.append(date)
 
   url_date = url_date - datetime.timedelta(days = 1)
