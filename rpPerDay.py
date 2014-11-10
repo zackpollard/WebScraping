@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
 
 os.chdir(os.path.dirname(os.path.abspath(__file__)))
-os.chdir(".\\rp_json")
+os.chdir(".\\rp_jsonRev")
 path = os.getcwd()
 files = ["rp"+str(x)+".json" for x in range(len([name for name in os.listdir('.') if os.path.isfile(name)]))]
 
@@ -28,6 +28,8 @@ for file in files:
         for fav in time_race[1]:
           if fav == "F":
             num_f += 1
+    if num_f == 0:
+      print date[0]
     y.append(num_f)
 
 ax = plt.figure(figsize=(30,5))
