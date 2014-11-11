@@ -14,7 +14,7 @@ for file in files:
 
   for date in test:
     print date[0]
-    for location in date[1:]:
+    for location in date[2:]:
       print "  " + location[0]
       for time in location[1:]:
         print "    " + time[0]
