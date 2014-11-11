@@ -17,7 +17,7 @@ for file in files:
 
 total = sorted(total, key=operator.itemgetter(0))
 
-os.chdir("..\\rp_json2")
+os.chdir("..\\rp_jsonRev")
 count_name = 0
 
 while len(total) > 50:
