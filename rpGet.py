@@ -47,7 +47,7 @@ for i in xrange(days_wanted):
     location.append(list_of_Locations.pop(0))
     #loops over each result (time_race)
     for td in table.find_all("td"):
-      try:#spme of the "td" have no info we need so they will fail
+      try:#some of the "td" have no info we need so they will fail
         time_race = [td.strong.get_text().encode("ascii")] #time of race
         #gets each time's results, needed because sometimes there are two winners
         results = td.find_all("p")[1].get_text().strip().encode("ascii").split("\n")
