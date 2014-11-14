@@ -14,7 +14,7 @@ from bs4 import BeautifulSoup as BS
 
 base_url = "http://www.racingpost.com/horses2/results/home.sd?r_date="
 url_date = datetime.date.today() - datetime.timedelta(days = 1)
-#url_date = datetime.date(2014, 11, 03)
+#url_date = datetime.date(2013, 12, 12)
 
 folder_name = "rp_json"
 limit_locations = False
@@ -71,17 +71,20 @@ for i in xrange(days_wanted):
           num_races += 1
           for result in results:
             result = result.strip()#nasty trailing whitespace
-            if result[0] == "1":#gets the winners
-              found_first = True
-              if result[-1].isupper():
-                fav.append(result[-1])
-                if "even" in result.split()[-1].lower():
-                  odds.append("Evens")
+            try:
+              if result[0] == "1":#gets the winners
+                found_first = True
+                if result[-1].isupper():
+                  fav.append(result[-1])
+                  if "even" in result.split()[-1].lower():
+                    odds.append("Evens")
+                  else:
+                    odds.append(result.split()[-1][:-1])
                 else:
-                  odds.append(result.split()[-1][:-1])
-              else:
-                fav.append("N")
-                odds.append(result.split()[-1])
+                  fav.append("N")
+                  odds.append(result.split()[-1])
+            except:
+              None
           if found_first == False:
             fav.append("N")
             odds.append("Unknown")
