@@ -16,7 +16,7 @@ base_url = "http://www.racingpost.com/horses2/results/home.sd?r_date="
 url_date = datetime.date.today() - datetime.timedelta(days = 1)
 #url_date = datetime.date(2014, 11, 03)
 
-folder_name = "rp_test"
+folder_name = "rp_json"
 limit_locations = False
 limited_locations = []
 
@@ -48,6 +48,7 @@ for i in xrange(days_wanted):
   soup = BS(r.text) #soupify!
   #gets the list of locations
   list_of_Locations = [re.search("^([^(]*)", x.string.encode("ascii")).group(0).strip() for x in soup.find("div", {"class": "tabBlock"}).ol.find_all("a")]
+  #may get what appears to be the same location twice in a row, this is because I get rid of brackets.
   if not limit_locations:
     limited_locations = list_of_Locations
   date = [str(url_date)] #creates out first layer of info
