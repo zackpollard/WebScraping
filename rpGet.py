@@ -16,6 +16,8 @@ base_url = "http://www.racingpost.com/horses2/results/home.sd?r_date="
 url_date = datetime.date.today() - datetime.timedelta(days = 1)
 #url_date = "2014-11-03"
 
+folder_name = "rp_json"
+
 time_between = 0.5# time between requests in secinds
 count = 0
 count_name = 0
@@ -93,5 +95,5 @@ for i in xrange(days_wanted):
   if delay < time_between:
     time.sleep(time_between - delay)#so I don't overload the site(or get caught...)
 
-with open("rp_json\\rp"+str(count_name)+".json", "w") as f:
+with open(folder_name + "\\rp"+str(count_name)+".json", "w") as f:
   f.write(json.dumps(data))
