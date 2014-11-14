@@ -1,4 +1,4 @@
-import json, os, time, operator
+import json, os, time, datetime
 from os import listdir
 from os.path import isfile, join
 
@@ -15,12 +15,13 @@ for file in files:
 
   total += data
 
-total = sorted(total, key=operator.itemgetter(0))
+total = sorted(total, key=lambda x: datetime.datetime.strptime(x[0], '%Y-%m-%d'))
 
 os.chdir("..\\rp_jsonRev")
 count_name = 0
 
 while len(total) > 50:
+  print len(total)
   to_write = total[:50]
   total = total[50:]
 
@@ -29,5 +30,6 @@ while len(total) > 50:
 
   count_name += 1
 
+print len(total)
 with open("rp" + str(count_name) + ".json", "w") as f:
   f.write(json.dumps(to_write))
