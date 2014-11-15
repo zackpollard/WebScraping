@@ -17,7 +17,7 @@ url_date = datetime.date.today() - datetime.timedelta(days = 1)
 #url_date = datetime.date(2013, 12, 12)
 
 folder_name = "rp_json"
-limit_locations = False
+limit_locations = True
 limited_locations = []
 
 time_between = 0.5# time between requests in secinds
