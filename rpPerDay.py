@@ -14,7 +14,7 @@ y = []
 years = []
 count = -1
 avg = []
-avg_last = 1000
+avg_last = 365
 max_fav = 0
 
 for file in files:
