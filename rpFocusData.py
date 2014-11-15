@@ -19,8 +19,6 @@ for file in files:
     for location in date[2:]:
       for time_race in location[1:]:
         write_data.append([time_race[0]])
-        if "9:" in time_race[0]:
-          print date[0]
         if "F" in time_race[1]:
           write_data[-1].append("F")
         else:
@@ -32,8 +30,7 @@ for file in files:
 os.chdir("..\\rp_jsonOrdered")
 count_name = 0
 
-while len(total) > 50:
-  print len(total)
+while len(total) >= 50:
   to_write = total[:50]
   total = total[50:]
 
@@ -42,6 +39,5 @@ while len(total) > 50:
 
   count_name += 1
 
-print len(total)
 with open("rp" + str(count_name) + ".json", "w") as f:
   f.write(json.dumps(to_write))

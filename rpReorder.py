@@ -20,7 +20,7 @@ total = sorted(total, key=lambda x: datetime.datetime.strptime(x[0], '%Y-%m-%d')
 os.chdir("..\\rp_jsonRev")
 count_name = 0
 
-while len(total) > 50:
+while len(total) >= 50:
   print len(total)
   to_write = total[:50]
   total = total[50:]
