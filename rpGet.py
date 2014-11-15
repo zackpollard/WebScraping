@@ -35,7 +35,6 @@ if limit_locations:
   with open("rpLocationLimit.txt", "r") as f:
     for line in f.read().split("\n"):
       limited_locations.append(line)
-print limited_locations
 
 data = []
 #### To be in loop ####
