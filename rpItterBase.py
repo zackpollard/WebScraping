@@ -12,9 +12,6 @@ for file in files:
     data = json.loads(f.read())
 
   for date in data:
-    print date[1]
-    if date[1] < 7:
-      print date[0]
     for location in date[2:]:
       for time_race in location[1:]:
         for fav in time_race[1]:
