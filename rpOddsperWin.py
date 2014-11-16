@@ -30,15 +30,13 @@ for file in files:
               index = x.index("1/1")
             else:
               index = x.index(odds)
-            if fav == "F":
-              y[index] += 1
+            y[index] += 1
           else:
-            if fav == "F":
-              if odds.lower() == "evens":
-                x.append("1/1")
-              else:
-                x.append(odds)
-              y.append(1)
+            if odds.lower() == "evens":
+              x.append("1/1")
+            else:
+              x.append(odds)
+            y.append(1)
 x, y = (list(t) for t in zip(*sorted(zip(x, y), key=lambda tup: float(tup[0].split("/")[0])/float(tup[0].split("/")[1]))))
 
 print num_races
