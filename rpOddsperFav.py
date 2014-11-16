@@ -54,6 +54,6 @@ graph = plt.plot(index, y)
 
 plt.xlabel("Odds")
 plt.ylabel("Num Favs")
-plt.xticks(rotation=70)
+plt.xticks(rotation=90)
 plt.xticks(np.linspace(0, len(x), len(x)), x)
 plt.show()

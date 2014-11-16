@@ -44,7 +44,7 @@ for file in files:
 x, y = (list(t) for t in zip(*sorted(zip(x, y), key=lambda tup: float(tup[0].split("/")[0])/float(tup[0].split("/")[1]))))
 
 
-fig = plt.figure(figsize=(20, 5))
+fig = plt.figure(figsize=(20, 7))
 ax = plt.plot()
 
 index = np.arange(len(x))
@@ -55,6 +55,6 @@ graph = plt.plot(index, y)
 
 plt.xlabel("Odds")
 plt.ylabel("Num Wins")
-plt.xticks(rotation=70)
+plt.xticks(rotation=90)
 plt.xticks(np.linspace(0, len(x), len(x)), x)
 plt.show()
