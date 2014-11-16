@@ -1,3 +1,6 @@
+#
+# Was getting a weird error, are some horse names getting mixed in with odds?
+#
 import json, os
 from os import listdir
 from os.path import isfile, join
@@ -25,18 +28,19 @@ for file in files:
           odds = time_race[2][num]
           fav = time_race[1][num]
 
-          if (odds in x) or ((odds.lower() == "evens") and ("1/1" in x)):
-            if odds.lower() == "evens":
+          if (odds in x) or (("ev" in odds.lower()) and ("1/1" in x)):
+            if "ev" in odds.lower():
               index = x.index("1/1")
             else:
               index = x.index(odds)
             y[index] += 1
           else:
-            if odds.lower() == "evens":
+            if "ev" in odds.lower():
               x.append("1/1")
             else:
               x.append(odds)
             y.append(1)
+print x
 x, y = (list(t) for t in zip(*sorted(zip(x, y), key=lambda tup: float(tup[0].split("/")[0])/float(tup[0].split("/")[1]))))
 
 print num_races

@@ -25,8 +25,8 @@ for file in files:
           odds = time_race[2][num]
           fav = time_race[1][num]
 
-          if (odds in x) or ((odds.lower() == "evens") and ("1/1" in x)):
-            if odds.lower() == "evens":
+          if (odds in x) or (("ev" in odds.lower()) and ("1/1" in x)):
+            if "ev" in odds.lower():
               index = x.index("1/1")
             else:
               index = x.index(odds)
@@ -34,7 +34,7 @@ for file in files:
               y[index] += 1
           else:
             if fav == "F":
-              if odds.lower() == "evens":
+              if "ev" in odds.lower():
                 x.append("1/1")
               else:
                 x.append(odds)
