@@ -75,13 +75,22 @@ for i in xrange(days_wanted):
                 found_first = True
                 if result[-1].isupper():
                   fav.append(result[-1])
-                  if "even" in result.split()[-1].lower():
-                    odds.append("Evens")
+                  if result.split()[-1][0].isalpha():
+                    if ("ev" in result.split()[-1].lower()) or ("odds" in result.split()[-1].lower()):
+                      odds.append("Evens")
+                    else:
+                      odds.append("Unknown")
                   else:
                     odds.append(result.split()[-1][:-1])
                 else:
                   fav.append("N")
-                  odds.append(result.split()[-1])
+                  if result.split()[-1][0].isalpha():
+                    if ("ev" in result.split()[-1].lower()) or ("odds" in result.split()[-1].lower()):
+                      odds.append("Evens")
+                    else:
+                      odds.append("Unknown")
+                  else:
+                    odds.append(result.split()[-1])
             except:
               None
           if found_first == False:
