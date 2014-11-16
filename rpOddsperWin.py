@@ -27,23 +27,22 @@ for file in files:
         for num in range(len(time_race[2])):
           odds = time_race[2][num]
           fav = time_race[1][num]
+          if not odds == "Unknown":
+            if (odds in x) or (("ev" in odds.lower()) and ("1/1" in x)):
+              if "ev" in odds.lower():
+                index = x.index("1/1")
+              else:
+                index = x.index(odds)
+              y[index] += 1
+            else:
+              if "ev" in odds.lower():
+                x.append("1/1")
+              else:
+                x.append(odds)
+              y.append(1)
 
-          if (odds in x) or (("ev" in odds.lower()) and ("1/1" in x)):
-            if "ev" in odds.lower():
-              index = x.index("1/1")
-            else:
-              index = x.index(odds)
-            y[index] += 1
-          else:
-            if "ev" in odds.lower():
-              x.append("1/1")
-            else:
-              x.append(odds)
-            y.append(1)
-print x
 x, y = (list(t) for t in zip(*sorted(zip(x, y), key=lambda tup: float(tup[0].split("/")[0])/float(tup[0].split("/")[1]))))
 
-print num_races
 
 fig = plt.figure(figsize=(20, 5))
 ax = plt.plot()
@@ -55,7 +54,7 @@ y = np.array(y)
 graph = plt.plot(index, y)
 
 plt.xlabel("Odds")
-plt.ylabel("Num Favs")
+plt.ylabel("Num Wins")
 plt.xticks(rotation=70)
 plt.xticks(np.linspace(0, len(x), len(x)), x)
 plt.show()
