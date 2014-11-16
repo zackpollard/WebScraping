@@ -1,18 +1,18 @@
-#######
+############
 #
 #
-# Need to order the dates
+# Added some date stuff to the labels, not fulle working probably
 #
 #
-#######
-import json, os, time, datetime, matplotlib
+############
+import json, os, time, datetime, matplotlib, calendar
 from os import listdir
 from os.path import isfile, join
 import numpy as np
 import matplotlib.pyplot as plt
 
 os.chdir(os.path.dirname(os.path.abspath(__file__)))
-os.chdir(".\\rp_jsonRev")
+os.chdir(".\\rp_jsonOrdered")
 path = os.getcwd()
 files = ["rp"+str(x)+".json" for x in range(len([name for name in os.listdir('.') if os.path.isfile(name)]))]
 
@@ -23,6 +23,8 @@ years = []#for the labels
 count = -1
 avg = []
 avg_last = 365
+first_date = True
+date_check = ""
 
 for file in files:
   with open(file, "r") as f:
@@ -31,15 +33,20 @@ for file in files:
   for date in data:
     count += 1
     x.append(time.strptime(date[0], '%Y-%m-%d'))
-    if not date[0][:4] in years:
-      years.append(date[0][:4])
+    if first_date:
+      date_check = date[0][5:]
+      first_date = False
+      print date_check
+    if date[0][5:] == date_check:
+      years.append(calendar.month_name[int(date[0][5:7])][:3] + " " + date[0][:4])
     num_race = 0
-    for location in date[2:]:
-      for time_race in location[1:]:
-        num_race += 1
-        for fav in time_race[1]:
-          if fav == "F":
-            break;
+    for time_race in date[1:]:
+      num_race += 1
+      if "F" in time_race[1]:
+        break
+
+    if num_race == 27:
+      print date[0]
 
     y.append(num_race)
     if count == avg_last:
