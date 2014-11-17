@@ -45,7 +45,7 @@ for file in files:
       if "F" in time_race[1]:
         break
 
-    if num_race == 27:
+    if num_race > 10:
       print date[0]
 
     y.append(num_race)
@@ -54,7 +54,7 @@ for file in files:
       avg.append(sum(l) / float(len(l)))
       count = -1
 
-ax = plt.figure(figsize=(30,5))
+ax = plt.figure(figsize=(30,10))
 
 index = np.arange(len(x))
 index2 = np.linspace(0, len(x), len(avg))
