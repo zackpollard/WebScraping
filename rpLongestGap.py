@@ -20,12 +20,16 @@ for file in files:
     for time_race in date[1:]:
       num_race += 1
       gap += 1
+      print_check = False
       if "F" in time_race[1]:
         if longest_gap < gap:
           longest_gap = gap
         if gap == 26:
           longest_gap_date = date[0]
         if gap > 10:
-          print gap, date[0]
+          print gap, date[0],
+          print_check = True
         gap = -1
+      if print_check:
+        print num_race
 print "Longest Gap:", longest_gap, "on", longest_gap_date

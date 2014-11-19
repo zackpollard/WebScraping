@@ -55,7 +55,7 @@ y = np.array(y)
 x = np.array(x)
 avg = np.array(avg)
 
-graph = plt.plot(index, y, color="blue")
+graph = plt.plot(index, y, 'o', color="blue")
 graph2 = plt.plot(index2, avg, color="red")
 
 plt.xlabel("Date")
