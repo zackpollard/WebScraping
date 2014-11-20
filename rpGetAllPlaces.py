@@ -14,27 +14,29 @@ from bs4 import BeautifulSoup as BS
 
 base_url = "http://www.racingpost.com/horses2/results/home.sd?r_date="
 url_date = datetime.date.today() - datetime.timedelta(days = 1)
-url_date = datetime.date(2009, 12, 12)
+url_date = datetime.date(2009, 12, 15)
 
 folder_name = "rp_allPlaces"
 limit_locations = True
 limited_locations = []
-update = False
+update = True
 
-time_between = 0.5# time between requests in secinds
+years_wanted = 10#number of years of data wanted
 if update:
   cwd = os.getcwd()
   os.chdir(".\\" + folder_name)
-  count_name = len([name for name in os.listdir('.') if os.path.isfile(name)])
+  last_file_no = len([name for name in os.listdir('.') if os.path.isfile(name)])
+  with open("rp"+str(last_file_no-1)+".json", "r") as f:
+    last_date = json.loads(f.read())[0]
+  delta = datetime.datetime.strptime(str(url_date), '%Y-%m-%d') - datetime.datetime.strptime(last_date, '%Y-%m-%d')
+  if delta.days > 0:
+    days_wanted = delta.days
+    count_name = last_file_no + days_wanted - 1
   os.chdir(cwd)
 else:
-  count_name = 0
-
-years_wanted = 10#number of years of data wanted
-days_wanted = years_wanted*365
-days_wanted = 10
-#today - datetime.timedelta(days = 1)
-#^ prev day
+  days_wanted = years_wanted*365
+  days_wanted = 2
+  count_name = days_wanted - 1
 
 if limit_locations:
   with open("rpLocationLimit.txt", "r") as f:
@@ -43,9 +45,8 @@ if limit_locations:
 
 #### To be in loop ####
 for i in xrange(days_wanted):
-  print str(url_date)
+  print str(url_date), count_name
 
-  now = float(time.time())#start time
   url = base_url+str(url_date) #makes the url
   main_r = requests.get(url) #get's the web page
   soup = BS(main_r.text) #soupify!
@@ -113,6 +114,6 @@ for i in xrange(days_wanted):
 
   with open(folder_name+"\\rp"+str(count_name)+".json", "w") as f:
     f.write(json.dumps(date))
-    count_name += 1
+    count_name -= 1
 
   url_date = url_date - datetime.timedelta(days = 1)
