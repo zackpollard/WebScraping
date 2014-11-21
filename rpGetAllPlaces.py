@@ -29,6 +29,7 @@ def getData(thread_id, thread_amount, days_wanted, limit_locations, limited_loca
     while count < (days_wanted/thread_amount):
 
         if os.path.isfile(folder_name + os.sep + "rp" + str(url_date) + ".json"):
+            print(str(url_date), " was skipped!")
             url_date = url_date - datetime.timedelta(days=1)
             count += 1
             continue
