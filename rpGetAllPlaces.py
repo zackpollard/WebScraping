@@ -161,5 +161,7 @@ def main():
 
         i.get()
 
+    print("WOO, LOTS OF FILES DOWNLOADED AND PARSED! FUCKING DATA MAN, DATA!")
+
 if __name__ == '__main__':
     main()
