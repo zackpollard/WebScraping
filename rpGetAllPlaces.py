@@ -19,7 +19,7 @@ url_date = datetime.date(2009, 12, 16)
 folder_name = "rp_allPlaces"
 limit_locations = True
 limited_locations = []
-update = True
+update = False
 
 years_wanted = 10#number of years of data wanted
 if update:
@@ -56,7 +56,7 @@ for i in range(days_wanted):
   main_r = requests.get(url) #get's the web page
   soup = BS(main_r.text) #soupify!
   #gets the list of locations
-  list_of_Locations = [re.search("^([^(]*)", x.string.encode("ascii")).group(0).strip() for x in soup.find("div", {"class": "tabBlock"}).ol.find_all("a")]
+  list_of_Locations = [re.search(b"^([^(]*)", x.string.encode("ascii")).group(0).strip() for x in soup.find("div", {"class": "tabBlock"}).ol.find_all("a")]
   #may get what appears to be the same location twice in a row, this is because I get rid of brackets.
   if not limit_locations:
     limited_locations = list_of_Locations
@@ -74,6 +74,7 @@ for i in range(days_wanted):
       for td in table.find_all("td"):
         try:#some of the "td" have no info we need so they will fail
           time_race = [td.strong.get_text().encode("ascii"), location] #time of race
+          
           #gets each time's results, needed because sometimes there are two winners
           results_url = "http://www.racingpost.com/" + td.h4.a["href"]
           results_r = requests.get(results_url)
