@@ -3,7 +3,7 @@ from os import listdir
 from os.path import isfile, join
 
 os.chdir(os.path.dirname(os.path.abspath(__file__)))
-os.chdir(".\\rp_json")
+os.chdir("."+os.sep+"rp_json")
 path = os.getcwd()
 files = ["rp"+str(x)+".json" for x in range(len([name for name in os.listdir('.') if os.path.isfile(name)]))]
 

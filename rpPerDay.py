@@ -5,7 +5,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 os.chdir(os.path.dirname(os.path.abspath(__file__)))
-os.chdir(".\\rp_jsonRev")
+os.chdir("."+os.sep+"rp_jsonRev")
 path = os.getcwd()
 files = ["rp"+str(x)+".json" for x in range(len([name for name in os.listdir('.') if os.path.isfile(name)]))]
 
@@ -33,9 +33,9 @@ for file in files:
           if fav == "F":
             num_f += 1
     if num_f == 0:
-      print date[0]
+      print(date[0])
     if num_f == 42:
-      print ">" + date[0]
+      print(">" + date[0])
     if num_f > max_fav:
       max_fav = num_f
     y.append(num_f)
@@ -44,7 +44,7 @@ for file in files:
       avg.append(sum(l) / float(len(l)))
       count = -1
 
-print max_fav
+print(max_fav)
 
 ax = plt.figure(figsize=(30,5))
 

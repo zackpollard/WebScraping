@@ -5,7 +5,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 os.chdir(os.path.dirname(os.path.abspath(__file__)))
-os.chdir(".\\rp_json")
+os.chdir("."+os.sep+"rp_json")
 path = os.getcwd()
 files = ["rp"+str(x)+".json" for x in range(len([name for name in os.listdir('.') if os.path.isfile(name)]))]
 
@@ -41,7 +41,7 @@ for file in files:
               y.append(1)
 x, y = (list(t) for t in zip(*sorted(zip(x, y), key=lambda tup: float(tup[0].split("/")[0])/float(tup[0].split("/")[1]))))
 
-print num_races
+print(num_races)
 
 fig = plt.figure(figsize=(20, 5))
 ax = plt.plot()

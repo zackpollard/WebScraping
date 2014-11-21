@@ -3,7 +3,7 @@ from os import listdir
 from os.path import isfile, join
 
 os.chdir(os.path.dirname(os.path.abspath(__file__)))
-os.chdir(".\\rp_jsonOrdered")
+os.chdir("."+os.sep+"rp_jsonOrdered")
 path = os.getcwd()
 files = ["rp"+str(x)+".json" for x in range(len([name for name in os.listdir('.') if os.path.isfile(name)]))]
 
@@ -27,9 +27,9 @@ for file in files:
         if gap == 26:
           longest_gap_date = date[0]
         if gap > 10:
-          print gap, date[0],
+          print(gap, date[0],)
           print_check = True
         gap = -1
       if print_check:
-        print num_race
-print "Longest Gap:", longest_gap, "on", longest_gap_date
+        print(num_race)
+print("Longest Gap:", longest_gap, "on", longest_gap_date)

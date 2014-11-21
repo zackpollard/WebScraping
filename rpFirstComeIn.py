@@ -12,7 +12,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 os.chdir(os.path.dirname(os.path.abspath(__file__)))
-os.chdir(".\\rp_jsonOrdered")
+os.chdir("."+os.sep+"rp_jsonOrdered")
 path = os.getcwd()
 files = ["rp"+str(x)+".json" for x in range(len([name for name in os.listdir('.') if os.path.isfile(name)]))]
 
@@ -36,7 +36,7 @@ for file in files:
     if first_date:
       date_check = date[0][5:]
       first_date = False
-      print date_check
+      print(date_check)
     if date[0][5:] == date_check:
       years.append(calendar.month_name[int(date[0][5:7])][:3] + " " + date[0][:4])
     num_race = 0
@@ -46,7 +46,7 @@ for file in files:
         break
 
     if num_race > 10:
-      print date[0]
+      print(date[0])
 
     y.append(num_race)
     if count == avg_last:

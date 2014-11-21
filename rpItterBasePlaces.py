@@ -10,6 +10,7 @@ files = sorted([name for name in os.listdir('.') if os.path.isfile(name)])
 for file in files:
   with open(file, "r") as f:
     date = json.loads(f.read())
+  print("!")
   string_date = date[0]
   no_of_races = date[1]
   for time_race in date[2:]:

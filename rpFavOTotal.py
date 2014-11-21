@@ -5,7 +5,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 os.chdir(os.path.dirname(os.path.abspath(__file__)))
-os.chdir(".\\rp_jsonRev")
+os.chdir("."+ os.sep+"rp_jsonRev")
 path = os.getcwd()
 files = ["rp"+str(x)+".json" for x in range(len([name for name in os.listdir('.') if os.path.isfile(name)]))]
 
@@ -32,12 +32,12 @@ for file in files:
             num_f += 1
           total_f += 1
     if num_f == 0:
-      print date[0]
+      print(date[0])
     if date[0] == "2011-12-24":
-      print date[1:]
+      print(date[1:])
     if total_f != 0:
       if num_f/total_f == 1:
-        print ">" + date[0]
+        print(">" + date[0])
       count += 1
       x.append(time.strptime(date[0], '%Y-%m-%d'))
       y.append(num_f/total_f)
