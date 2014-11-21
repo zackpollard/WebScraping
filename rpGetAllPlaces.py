@@ -121,11 +121,11 @@ def main():
         days_wanted = delta.days
         print (last_date)
         if days_wanted == 0:
-          print("Nothing to update.")
-          sys.exit()
+            print("Nothing to update.")
+            sys.exit()
         if days_wanted < 0:
-          print("Not sure how you've done that, well done I guess. Or go check your system clock.")
-          sys.exit()
+            print("Not sure how you've done that, well done I guess. Or go check your system clock.")
+            sys.exit()
         os.chdir(cwd)
     else:
       years_wanted = 10  # number of years of data wanted
