@@ -3,7 +3,7 @@ from os import listdir
 from os.path import isfile, join
 
 os.chdir(os.path.dirname(os.path.abspath(__file__)))
-os.chdir(".\\rp_allPlaces")
+os.chdir("."+os.sep+"rp_allPlaces")
 path = os.getcwd()
 files = sorted([name for name in os.listdir('.') if os.path.isfile(name)])
 
