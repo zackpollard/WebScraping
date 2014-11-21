@@ -1,13 +1,13 @@
-# # # # 
-# 
+# # # #
+#
 #  For web scraping http://www.racingpost.com/ results
-# 
+#
 #    Info gathered:
 #    Date, Location, Time, Did a Favorite Win?, Odds, weather(?)
-# 
+#
 #    Stored using json? csv?
-# 
-# # # # 
+#
+# # # #
 
 import sys
 import json
@@ -23,7 +23,7 @@ from multiprocessing import Pool
 # # # #  To be in loop # # # #
 def getData(thread_id, thread_amount, days_wanted, limit_locations, limited_locations, base_url, folder_name):
 
-    url_date = datetime.date.today() - datetime.timedelta(days=((days_wanted/thread_amount)*thread_id) - 1)
+    url_date = datetime.date.today() - datetime.timedelta(days=((days_wanted/thread_amount)*thread_id) + 1)
     count = 0
 
     while count < (days_wanted/thread_amount):
@@ -112,34 +112,31 @@ def main():
     limited_locations = []
     update = False
 
-    years_wanted = 10  # number of years of data wanted
     if update:
         cwd = os.getcwd()
-        os.chdir(".\\" + folder_name)
-        last_file_no = len([name for name in os.listdir('.') if os.path.isfile(name)])
-        with open("rp" + str(last_file_no - 1) + ".json", "r") as f:
-            last_date = json.loads(f.read())[0]
-        delta = datetime.datetime.strptime(str(url_date), '%Y-%m-%d') - datetime.datetime.strptime(last_date, '%Y-%m-%d')
-        if delta.days > 0:
-            days_wanted = delta.days
-            count_name = last_file_no + days_wanted - 1
-        elif delta.days == 0:
-            print("There is nothing to update.")
-            sys.exit()
-        else:
-            print("Probably entered an invalid date, bad boy.")
+        os.chdir("." + os.sep + "rp_allPlaces")
+        path = os.getcwd()
+        last_date = sorted([name for name in os.listdir('.') if os.path.isfile(name)])[-1][2:-5]
+        delta = datetime.datetime.strptime(str(datetime.date.today() - datetime.timedelta(days=1)), '%Y-%m-%d') - datetime.datetime.strptime(last_date , '%Y-%m-%d')
+        days_wanted = delta.days
+        print (last_date)
+        if days_wanted == 0:
+          print("Nothing to update.")
+          sys.exit()
+        if days_wanted < 0:
+          print("Not sure how you've done that, well done I guess. Or go check your system clock.")
+          sys.exit()
         os.chdir(cwd)
     else:
-        days_wanted = years_wanted * 365
-        # days_wanted = 2
-        count_name = days_wanted - 1
+      years_wanted = 10  # number of years of data wanted
+      days_wanted = years_wanted * 365
 
     if limit_locations:
         with open("rpLocationLimit.txt", "r") as f:
             for line in f.read().split("\n"):
                 limited_locations.append(line)
 
-    thread_amount = 40
+    thread_amount = 4
 
     pool = Pool(processes=thread_amount)
 
