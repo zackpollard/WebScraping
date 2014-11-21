@@ -96,7 +96,7 @@ def getData(thread_id, thread_amount, days_wanted, limit_locations, limited_loca
         date.append(num_races)
         date = date + all_times
 
-        with open(folder_name + "\\rp" + str(url_date) + ".json", "w") as f:
+        with open(folder_name + os.sep + "rp" + str(url_date) + ".json", "w") as f:
             f.write(json.dumps(date))
 
         url_date = url_date - datetime.timedelta(days=1)
