@@ -3,7 +3,7 @@ from os import listdir
 from os.path import isfile, join
 
 os.chdir(os.path.dirname(os.path.abspath(__file__)))
-os.chdir(".\\rp_allPlaces")
+os.chdir("."+os.sep+"rp_allPlaces")
 path = os.getcwd()
 base = datetime.date.today()
 files = ["rp"+str(base - datetime.timedelta(days=x))+".json" for x in range(10*365)]
