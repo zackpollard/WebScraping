@@ -15,14 +15,18 @@ for file in files:
         string_date = date[0]
         no_of_races = date[1]
         if not no_of_races == 0:
+            last_time = date[2][0]
             for time_race in date[2:]:
                 time_of_race = time_race[0]
-                location = time_race[1]
-                for result in time_race[2]:
-                    place = result[0]
-                    fav = result[1]
-                    odds = result[2]
+                if last_time <= time_of_race:
+                    location = time_race[1]
+                    for result in time_race[2]:
+                        place = result[0]
+                        fav = result[1]
+                        odds = result[2]
+                else:
+                    print("Times out of order", file)
         else:
-            print("No races in", file)
+            print("No races on", file)
     else:
-        print("Failed on", file)
+        print("Date does not exist:", file)
