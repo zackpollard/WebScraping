@@ -110,13 +110,13 @@ def main():
     folder_name = "rp_allPlaces"
     limit_locations = True
     limited_locations = []
-    update = False
 
-    if update:
+    files = sorted([name for name in os.listdir('.') if os.path.isfile(name)])
+    if not file = []:
         cwd = os.getcwd()
         os.chdir("." + os.sep + "rp_allPlaces")
         path = os.getcwd()
-        last_date = sorted([name for name in os.listdir('.') if os.path.isfile(name)])[-1][2:-5]
+        last_date = files[-1][2:-5]
         delta = datetime.datetime.strptime(str(datetime.date.today() - datetime.timedelta(days=1)), '%Y-%m-%d') - datetime.datetime.strptime(last_date , '%Y-%m-%d')
         days_wanted = delta.days
         print (last_date)
