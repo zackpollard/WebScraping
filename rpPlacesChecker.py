@@ -12,7 +12,6 @@ for file in files:
     if os.path.isfile(file):
         with open(file, "r") as f:
             date = json.loads(f.read())
-        print("!")
         string_date = date[0]
         no_of_races = date[1]
         if not no_of_races == 0:
