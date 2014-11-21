@@ -13,6 +13,7 @@ max_num_of_num_of_wins = 5
 max_num_of_losses = 10
 pounds_to_win = 10.0
 bank = 0.0
+lowest_bank = 0.0
 
 for file in files:
     with open(file, "r") as f:
@@ -63,7 +64,9 @@ for file in files:
             need_to_win = pounds_to_win + running_loss
             bet_amount = round((int(odds_fav[1])*need_to_win)/int(odds_fav[0]), 2)
             print(string_date, time_of_race, bank, odds_fav, fav_win, need_to_win, bet_amount)
-            time.sleep(2)
+            if bank < lowest_bank:
+                lowest_bank = bank
+            #time.sleep(2)
             bank -= bet_amount
             if fav_win:
                 wins_today += 1
@@ -80,3 +83,4 @@ for file in files:
 
     else:
         print(string_date, "does not have enough meetings, skipped.")
+print(lowest_bank)
