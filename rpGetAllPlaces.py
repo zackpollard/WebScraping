@@ -14,7 +14,7 @@ from bs4 import BeautifulSoup as BS
 
 base_url = "http://www.racingpost.com/horses2/results/home.sd?r_date="
 url_date = datetime.date.today() - datetime.timedelta(days = 1)
-url_date = datetime.date(2009, 12, 15)
+url_date = datetime.date(2009, 12, 16)
 
 folder_name = "rp_allPlaces"
 limit_locations = True
@@ -32,6 +32,11 @@ if update:
   if delta.days > 0:
     days_wanted = delta.days
     count_name = last_file_no + days_wanted - 1
+  elif delta.days == 0:
+    print("There is nothing to update.")
+    sys.exit()
+  else:
+    print("Probably entered an invalid date, bad boy.")
   os.chdir(cwd)
 else:
   days_wanted = years_wanted*365
@@ -44,8 +49,8 @@ if limit_locations:
       limited_locations.append(line)
 
 #### To be in loop ####
-for i in xrange(days_wanted):
-  print str(url_date), count_name
+for i in range(days_wanted):
+  print(str(url_date), count_name)
 
   url = base_url+str(url_date) #makes the url
   main_r = requests.get(url) #get's the web page
@@ -64,7 +69,7 @@ for i in xrange(days_wanted):
     if list_of_Locations[0] in limited_locations:
       location = list_of_Locations[0]
       list_of_Locations.pop(0)
-      #print location
+      #print(location)
       #loops over each result (time_race)
       for td in table.find_all("td"):
         try:#some of the "td" have no info we need so they will fail
@@ -80,7 +85,7 @@ for i in xrange(days_wanted):
             if result.has_attr("data-hid"):
               try:
                 place = int(result.find("h3").string)
-                #print result.find("span", {'class': 'black'}).text
+                #print(result.find("span", {'class': 'black'}).text)
                 odds_fav = result.find("span", {'class': 'black'}).text.split(" ")[-2]
                 if odds_fav[-1].isupper():
                   fav = odds_fav[-1]
