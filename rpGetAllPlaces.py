@@ -27,6 +27,13 @@ def getData(thread_id, thread_amount, days_wanted, limit_locations, limited_loca
     count = 0
 
     while count < (days_wanted/thread_amount):
+
+        if os.path.isfile(folder_name + os.sep + "rp" + str(url_date) + ".json"):
+            print(str(url_date), " was skipped!")
+            url_date = url_date - datetime.timedelta(days=1)
+            count += 1
+            continue
+
         print(str(url_date))
 
         url = base_url + str(url_date)  # makes the url
@@ -110,9 +117,10 @@ def main():
     folder_name = "rp_allPlaces"
     limit_locations = True
     limited_locations = []
+    update = False
 
-    files = sorted([name for name in os.listdir('.') if os.path.isfile(name)])
-    if not file = []:
+    if update:
+        files = sorted([name for name in os.listdir('.') if os.path.isfile(name)])
         cwd = os.getcwd()
         os.chdir("." + os.sep + "rp_allPlaces")
         path = os.getcwd()
@@ -152,6 +160,8 @@ def main():
     for i in proc_list:
 
         i.get()
+
+    print("WOO, LOTS OF FILES DOWNLOADED AND PARSED! FUCKING DATA MAN, DATA!")
 
 if __name__ == '__main__':
     main()
