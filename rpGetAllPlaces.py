@@ -116,9 +116,10 @@ def main():
     folder_name = "rp_allPlaces"
     limit_locations = True
     limited_locations = []
+    update = False
 
-    files = sorted([name for name in os.listdir('.') if os.path.isfile(name)])
-    if not files == []:
+    if update:
+        files = sorted([name for name in os.listdir('.') if os.path.isfile(name)])
         cwd = os.getcwd()
         os.chdir("." + os.sep + "rp_allPlaces")
         path = os.getcwd()
