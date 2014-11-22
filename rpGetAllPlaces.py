@@ -112,7 +112,7 @@ def main():
     limited_locations = []
 
     files = sorted([name for name in os.listdir('.') if os.path.isfile(name)])
-    if not file = []:
+    if not files == []:
         cwd = os.getcwd()
         os.chdir("." + os.sep + "rp_allPlaces")
         path = os.getcwd()

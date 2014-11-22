@@ -1,10 +1,11 @@
 import json, os
 from os import listdir
 from os.path import isfile, join
+from numpy import recarray
 import time
 
 os.chdir(os.path.dirname(os.path.abspath(__file__)))
-os.chdir("."+os.sep+"rp_allPlaces")
+os.chdir("." + os.sep + "rp_allPlaces")
 path = os.getcwd()
 files = sorted([name for name in os.listdir('.') if os.path.isfile(name)])
 
@@ -14,6 +15,9 @@ max_num_of_losses = 10
 pounds_to_win = 10.0
 bank = 0.0
 lowest_bank = 0.0
+first_month = None
+last_stored_month = None
+monthly_totals = []
 
 for file in files:
     with open(file, "r") as f:
@@ -52,7 +56,7 @@ for file in files:
 
                 if fav == "F":  # get's the favorite's odds
                     if "ev" in odds.lower():
-                        odds_fav = [1,1]
+                        odds_fav = [1, 1]
                     elif odds == "Unknown":
                         continue  # anything else?
                     else:
@@ -62,25 +66,34 @@ for file in files:
             if odds_fav == []:
                 continue
             need_to_win = pounds_to_win + running_loss
-            bet_amount = round((int(odds_fav[1])*need_to_win)/int(odds_fav[0]), 2)
+            bet_amount = round((int(odds_fav[1]) * need_to_win) / int(odds_fav[0]), 2)
             print(string_date, time_of_race, bank, odds_fav, fav_win, need_to_win, bet_amount)
             if bank < lowest_bank:
                 lowest_bank = bank
-            #time.sleep(2)
+            # time.sleep(2)
             bank -= bet_amount
             if fav_win:
                 wins_today += 1
                 running_loss = 0
                 losses_in_a_row = 0
                 bank += bet_amount
-                bank += round((int(odds_fav[0])*bet_amount)/int(odds_fav[1]), 2)
+                bank += round((int(odds_fav[0]) * bet_amount) / int(odds_fav[1]), 2)
             else:
                 losses_in_a_row += 1
                 running_loss += bet_amount
 
             bank = round(bank, 2)
-
+    month = string_date.split("-")[1]
+    if first_month is None:
+        first_month = month
+    if last_stored_month is None:
+        last_stored_month = month
+    elif last_stored_month != month:
+        last_stored_month = month
+        monthly_totals.append(bank)
 
     else:
         print(string_date, "does not have enough meetings, skipped.")
 print(lowest_bank)
+print(monthly_totals)
+print(len(monthly_totals))
