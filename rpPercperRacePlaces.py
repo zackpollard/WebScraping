@@ -50,25 +50,26 @@ for file in files:
                         x.append(odds)
                         y.append(1)
                         z.append(1)
-            if odds[1].isalpha():
-                if not odds == "Unknown":
-                    if (odds in x) or (("ev" in odds.lower()) and ("1/1" in x)):
-                        if "ev" in odds.lower():
-                            index = x.index("1/1")
+            else:
+                if odds[1].isalpha():
+                    if not odds == "Unknown":
+                        if (odds in x) or (("ev" in odds.lower()) and ("1/1" in x)):
+                            if "ev" in odds.lower():
+                                index = x.index("1/1")
+                            z[index] += 1
+                        else:
+                            if "ev" in odds.lower():
+                                x.append("1/1")
+                            y.append(0)
+                            z.append(1)
+                else:
+                    if odds in x:
+                        index = x.index(odds)
                         z[index] += 1
                     else:
-                        if "ev" in odds.lower():
-                            x.append("1/1")
+                        x.append(odds)
                         y.append(0)
                         z.append(1)
-            else:
-                if odds in x:
-                    index = x.index(odds)
-                    z[index] += 1
-                else:
-                    x.append(odds)
-                    y.append(0)
-                    z.append(1)
 y = [float(y[i])/float(z[i]) for i in range(len(y))]
 
 x, y = (list(t) for t in zip(*sorted(zip(x, y), key=lambda tup: float(tup[0].split("/")[0])/float(tup[0].split("/")[1]))))
